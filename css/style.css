@@ -3,3 +3,16 @@
         height: 400px;
         background-color: grey;
       }
+
+#search{
+	 width: 300px;
+    margin-top: 40px;
+    border-radius: 20px;
+    border-style: solid;
+    height: 30px;
+    color: blue;
+   
+}
+.icon_self{
+	padding-top: 25px;
+}
