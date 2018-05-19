@@ -118,7 +118,7 @@ var map_location = [
 
 function initMap() {
         map = new google.maps.Map(document.getElementById('map'),{
-        zoom: 13,
+        zoom: 12,
           center: {
             lat:15.496777,
             lng:73.827827
@@ -151,8 +151,13 @@ function initMap() {
             lat:map_location[i].location[0],
             lng:map_location[i].location[1]
           },
-          map: map
+          map: map,
+          id : map_location[i].id,
+          show : ko.observable(map_location[i].show),
+          type : map_location[i].type
         });
+    self.locationList.push(marker);
+    self.locationList[self.locationList.length-1];
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent("<p><b>" + map_location[i].name + "</b>" + "<div>" + map_location[i].type + "</div>" + "</p>");
@@ -170,7 +175,18 @@ function initMap() {
       })(marker, i));
 
     }
-    
+    self.ajaxRequest = function(marker){
+      $.ajax({
+        url: "https://api.foursquare.com/v2/venues/" + marker.id + '?client_id=FPFSO3VELDKV40HYOVEDB3212KQ3B5YH42DW0BE3025HRXAA&client_secret=5XHCQR55KPXA30TNRFZOWBMARU5AR5QYKEIIE30XJVEWEFT0&v=20180519',
+        datatype: "json",
+        success: function(result){
+          var details = result.response.venue;
+
+        }
+
+
+      })
+    }
     
 
 
