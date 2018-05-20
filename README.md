@@ -23,3 +23,11 @@ The neighborhood map application is complex enough and incorporates a variety of
 1. Clone this repo or download zip file.
 2. Just open index.html in your browser
 3. You are ready to go.
+
+#### Websites and Resources used to make this project:
+1. [JS Fiddle](http://jsfiddle.net/mythical/XJEzc/)
+2. [Stack Overflow- knockout search in observable array](https://stackoverflow.com/questions/29667134/knockout-search-in-observable-array)
+3. [FourSquare Website](https://developer.foursquare.com/)
+4. [Google Javascript API](https://developers.google.com/maps/documentation/javascript/tutorial)
+5. [Google developer Console](https://console.developers.google.com/)
+6. [Knockout JS Documentation](http://knockoutjs.com/documentation/)
