@@ -128,7 +128,7 @@ function initMap() {
     ko.applyBindings(new markerdisplay());
 
 }
-
+/*function to do ajax request*/
 self.ajaxRequest = function(marker) {
     $.ajax({
         url: "https://api.foursquare.com/v2/venues/" + marker.id + '?client_id=FPFSO3VELDKV40HYOVEDB3212KQ3B5YH42DW0BE3025HRXAA&client_secret=5XHCQR55KPXA30TNRFZOWBMARU5AR5QYKEIIE30XJVEWEFT0&v=20180519',
@@ -152,7 +152,7 @@ self.ajaxRequest = function(marker) {
     });
 };
 
-
+/*Main function*/
 function markerdisplay() {
     var self = this;
     var infowindow = new google.maps.InfoWindow({
@@ -184,6 +184,7 @@ function markerdisplay() {
         self.locationList.push(marker);
 
         self.locationList[self.locationList.length - 1];
+        /* Click event on the marker to show info window*/
         google.maps.event.addListener(marker, 'click', (function(marker, i) {
             ajaxRequest(marker);
 
@@ -204,9 +205,9 @@ function markerdisplay() {
         })(marker, i));
 
     }
-    
 
 
+/* Function to perform the search from the search bar*/
     self.searchText = ko.observable('');
     self.search = ko.dependentObservable(function() {
         infowindow.close();
@@ -231,71 +232,67 @@ function markerdisplay() {
 
 
     });
-
-    self.function1 =  function() {
+    /* Function to show all Casinos*/
+    self.function1 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Casino")==0)
-             { 
+            if (self.locationList[j].type.localeCompare("Casino") == 0) {
                 self.locationList[j].show(true);
                 self.locationList[j].setVisible(true);
 
-            }
-            else{
-              self.locationList[j].show(false);
-              self.locationList[j].setVisible(false);
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
             }
         }
     }
-    self.function2 =  function() {
+    /* Function to show all Beaches*/
+    self.function2 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Beach")==0)
-             { 
+            if (self.locationList[j].type.localeCompare("Beach") == 0) {
                 self.locationList[j].show(true);
                 self.locationList[j].setVisible(true);
 
-            }
-            else{
-              self.locationList[j].show(false);
-              self.locationList[j].setVisible(false);
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
             }
         }
     }
-    self.function3 =  function() {
+    /* Function to show all Resorts*/
+    self.function3 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Resort")==0)
-             { 
+            if (self.locationList[j].type.localeCompare("Resort") == 0) {
                 self.locationList[j].show(true);
                 self.locationList[j].setVisible(true);
 
-            }
-            else{
-              self.locationList[j].show(false);
-              self.locationList[j].setVisible(false);
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
             }
         }
     }
-    self.function4 =  function() {
+    /* Function to show all Food Locations*/
+    self.function4 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Food")==0)
-             { 
+            if (self.locationList[j].type.localeCompare("Food") == 0) {
                 self.locationList[j].show(true);
                 self.locationList[j].setVisible(true);
 
-            }
-            else{
-              self.locationList[j].show(false);
-              self.locationList[j].setVisible(false);
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
             }
         }
     }
-    self.function5 =  function() {
+    /* Function to show all markers*/
+    self.function5 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
-           
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
 
-            
-           
+            self.locationList[j].show(true);
+            self.locationList[j].setVisible(true);
+
+
+
         }
     }
 
