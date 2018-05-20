@@ -132,6 +132,28 @@ function initMap() {
 
 }
 
+self.ajaxRequest = function(marker){
+      $.ajax({
+        url: "https://api.foursquare.com/v2/venues/" + marker.id + '?client_id=FPFSO3VELDKV40HYOVEDB3212KQ3B5YH42DW0BE3025HRXAA&client_secret=5XHCQR55KPXA30TNRFZOWBMARU5AR5QYKEIIE30XJVEWEFT0&v=20180519',
+        datatype: "json",
+        success: function(result){
+          var details = result.response.venue;
+          console.log(details.likes.summary);
+          if (details.hasOwnProperty('likes')){
+            marker.likes = details.likes.summary;
+          }
+          if (details.hasOwnProperty('ratings')){
+             marker.checkins = details.stats.checkinsCount;
+          }
+
+        },
+        error : function(error){
+          self.error("Foursquare is unable to provide you results. Try again after some time.")
+        }
+
+
+      });
+    };
 
  
   function markerdisplay(){
@@ -152,17 +174,24 @@ function initMap() {
             lat:map_location[i].location[0],
             lng:map_location[i].location[1]
           },
+
           map: map,
           name : map_location[i].name,
           id : map_location[i].id,
           show : ko.observable(map_location[i].show),
           type : map_location[i].type
+
         });
+   
     self.locationList.push(marker);
+
     self.locationList[self.locationList.length-1];
     google.maps.event.addListener(marker, 'click', (function(marker, i) {
+
+
         return function() {
-          infowindow.setContent("<p><b>" + map_location[i].name + "</b>" + "<div>" + map_location[i].type + "</div>" + "</p>");
+          
+          infowindow.setContent("<p><b>" + map_location[i].name + "</b>" + "<div>" + map_location[i].type + marker.likes+ marker.checkins +"</div>" + "</p>");
           infowindow.open(map, marker);
 
            if (marker.getAnimation() !== null) {
@@ -177,27 +206,7 @@ function initMap() {
       })(marker, i));
 
     }
-    self.ajaxRequest = function(marker){
-      $.ajax({
-        url: "https://api.foursquare.com/v2/venues/" + marker.id + '?client_id=FPFSO3VELDKV40HYOVEDB3212KQ3B5YH42DW0BE3025HRXAA&client_secret=5XHCQR55KPXA30TNRFZOWBMARU5AR5QYKEIIE30XJVEWEFT0&v=20180519',
-        datatype: "json",
-        success: function(result){
-          var details = result.response.venue;
-          if (details.hasOwnProperty('likes')){
-            marker.likes = details.likes.summary;
-          }
-          if (details.hasOwnProperty('ratings')){
-             marker.checkins = details.stats.checkinsCount;
-          }
-
-        },
-        error : function(error){
-          self.error("Foursquare is unable to provide you results. Try again after some time.")
-        }
-
-
-      });
-    };
+    
     
  self.searchText= ko.observable('');
  self.search = ko.dependentObservable(function() {
