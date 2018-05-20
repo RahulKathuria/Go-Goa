@@ -1,6 +1,6 @@
 #map {
         width: 100%;
-        height: 550px;
+        height: 600px;
         background-color: grey;
         zoom:00px;
       }
@@ -16,4 +16,7 @@
 }
 .icon_self{
 	padding-top: 25px;
+}
+.myFont{
+    font-size: 8px;
 }
