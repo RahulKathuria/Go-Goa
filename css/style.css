@@ -8,10 +8,10 @@
 #search{
 	 width: 300px;
     margin-top: 40px;
-    border-radius: 20px;
-    border-style: solid;
+   
+    
     height: 30px;
-    color: blue;
+    
    
 }
 .icon_self{
@@ -19,4 +19,9 @@
 }
 .myFont{
     font-size: 8px;
+}
+
+.drop{
+    padding-right: 300px;
+    padding-top: 40px;
 }
