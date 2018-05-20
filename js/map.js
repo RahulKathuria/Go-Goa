@@ -128,6 +128,7 @@ function initMap() {
     ko.applyBindings(new markerdisplay());
 
 }
+$('.dropdown-trigger').dropdown();
 /*function to do ajax request*/
 self.ajaxRequest = function(marker) {
     $.ajax({
@@ -151,6 +152,7 @@ self.ajaxRequest = function(marker) {
 
     });
 };
+
 
 /*Main function*/
 function markerdisplay() {
@@ -297,3 +299,7 @@ function markerdisplay() {
     }
 
 }
+
+
+
+
