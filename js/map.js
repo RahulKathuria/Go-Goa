@@ -122,7 +122,8 @@ function initMap() {
           center: {
             lat:15.496777,
             lng:73.827827
-          }
+          },
+
           
         });
         
@@ -152,6 +153,7 @@ function initMap() {
             lng:map_location[i].location[1]
           },
           map: map,
+          name : map_location[i].name,
           id : map_location[i].id,
           show : ko.observable(map_location[i].show),
           type : map_location[i].type
@@ -181,18 +183,46 @@ function initMap() {
         datatype: "json",
         success: function(result){
           var details = result.response.venue;
+          if (details.hasOwnProperty('likes')){
+            marker.likes = details.likes.summary;
+          }
+          if (details.hasOwnProperty('ratings')){
+             marker.checkins = details.stats.checkinsCount;
+          }
 
+        },
+        error : function(error){
+          self.error("Foursquare is unable to provide you results. Try again after some time.")
         }
 
 
-      })
-    }
+      });
+    };
     
+ self.searchText= ko.observable('');
+ self.search = ko.dependentObservable(function() {
+        var search = self.searchText().toLowerCase();
+        for (var i = 0; i < self.locationList.length; i++) {
+            if (self.locationList[i].name.toLowerCase().indexOf(search) >= 0) {
+               self.locationList[i].show(true);
+               self.locationList[i].setVisible(true);
 
 
+            } else {
+                self.locationList[i].show(false);
+                self.locationList[i].setVisible(false);
+                
+
+            }
+
+        }
+
+});
+
+}
 
 
-  }
+  
 
 
 
