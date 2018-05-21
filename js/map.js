@@ -128,7 +128,6 @@ function initMap() {
     ko.applyBindings(new markerdisplay());
 
 }
-$('.dropdown-trigger').dropdown();
 /*function to do ajax request*/
 self.ajaxRequest = function(marker) {
     $.ajax({
@@ -138,15 +137,15 @@ self.ajaxRequest = function(marker) {
             var details = result.response.venue;
             console.log(details.likes.summary);
             if (details.hasOwnProperty('likes')) {
-                marker.likes = details.likes.summary;
+                marker.likes = details.likes.summary || 'N/A' ;
             }
             if (details.hasOwnProperty('rating')) {
-                marker.rating = details.rating;
+                marker.rating = details.rating || 'N/A';
             }
 
         },
         error: function(error) {
-            self.error("Foursquare is unable to provide you results. Try again after some time.")
+            self.errComment("Foursquare is unable to provide you results. Try again after some time.");
         }
 
 
@@ -195,12 +194,11 @@ function markerdisplay() {
                 infowindow.setContent("<p><b>" + map_location[i].name + "</b>" + "<div>" + map_location[i].type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
                 infowindow.open(map, marker);
 
-                if (marker.getAnimation() !== null) {
+                
                     marker.setAnimation(null);
-                } else {
-                    infowindow.close();
+                 
                     marker.setAnimation(google.maps.Animation.BOUNCE);
-                }
+                
 
 
             }
@@ -311,6 +309,18 @@ function markerdisplay() {
     }
     else{
         x.style.display="none";}
+    }
+
+
+    function myFunction2() {
+    console.log("hello");
+    var x = document.getElementById("myDropdown");
+    if (x.style.display==="block"){
+        x.style.display="none";
+        console.log(x.style.display);
+
+    }
+   
     }
   
 
