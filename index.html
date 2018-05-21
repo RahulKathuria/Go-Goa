@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
    <head>
@@ -18,14 +17,31 @@
          <div class="nav-wrapper">
             <a href="#" class="brand-logo center">Go - Goa</a>
             <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+            <a class='dropdown-trigger btn right drop' href='#' data-target='dropdown1'>Search</a>
+            <ul id="dropdown1" class="dropdown-content">
+               <li>
             <form>
                <div class="input-field right nav-wrapper search_self">
-                  <input id="search" type="search" placeholder="search" data-bind="value: searchText, valueUpdate: 'keyup' " required>
+
+                  <input id="search" type="search" placeholder="search" data-bind="value: searchText, valueUpdate: 'keyup'"  required>
                   <label class="label-icon" for="search"><i class="material-icons icon_self">search</i></label>
                   <i class="material-icons icon_self">close</i>
+
                </div>
-            </form>
+            </form></li>
+            <ul data-bind="template: {name:'maps', foreach:map_location}" > 
+            </ul> 
          </div>
+         
+</div> 
+
+<script type="text/html" id="maps"> 
+    <li>
+        <strong data-bind="text: name"></strong> 
+        
+    </li>
+</script> 
+         
          <div class="nav-content">
          <ul class="tabs tabs-transparent">
             <li class="btn" data-bind="click: function1"><a href="#casino">Casinos</a></button>
