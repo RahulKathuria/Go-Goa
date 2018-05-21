@@ -145,7 +145,7 @@ self.ajaxRequest = function(marker) {
 
         },
         error: function(error) {
-            consol.log("Foursquare is unable to provide you results. Try again after some time.");
+            console.log("Foursquare is unable to provide you results. Try again after some time.");
         }
 
 
