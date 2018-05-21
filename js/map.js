@@ -145,7 +145,7 @@ self.ajaxRequest = function(marker) {
 
         },
         error: function(error) {
-            console.log("Foursquare is unable to provide you results. Try again after some time.");
+            consol.log("Foursquare is unable to provide you results. Try again after some time.");
         }
 
 
@@ -232,22 +232,6 @@ function markerdisplay() {
 
 
     });
-    
-self.showInfo = function(marker){
-    var infowindow = new google.maps.InfoWindow({
-        maxwidth: 400,
-
-
-    });
-
-     infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
-    infowindow.open(map, marker);
-     marker.setAnimation(google.maps.Animation.BOUNCE);
-                
-}
-
-
-
     /* Function to show all Casinos*/
     self.function1 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
