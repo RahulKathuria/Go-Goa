@@ -145,8 +145,12 @@ self.ajaxRequest = function(marker) {
 
         },
         error: function(error) {
+
             console.log("Foursquare is unable to provide you results. Try again after some time.");
+
+
         }
+
 
 
     });
@@ -161,6 +165,7 @@ function markerdisplay() {
 
 
     });
+
 
     self.locationList = [];
 
@@ -186,25 +191,55 @@ function markerdisplay() {
 
         self.locationList[self.locationList.length - 1];
         /* Click event on the marker to show info window*/
-        google.maps.event.addListener(marker, 'click', (function(marker, i) {
-            ajaxRequest(marker);
-
-            return function() {
-
-                infowindow.setContent("<p><b>" + map_location[i].name + "</b>" + "<div>" + map_location[i].type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
-                infowindow.open(map, marker);
-
-                
-                    marker.setAnimation(null);
-                 
-                    marker.setAnimation(google.maps.Animation.BOUNCE);
-                
+function Animation(marker){
+    marker.setAnimation(google.maps.Animation.BOUNCE);
+    setTimeout(function() {
+            marker.setAnimation(null);
+        }, 2500);
+   
+}
 
 
-            }
-        })(marker, i));
+    self.click = function(marker) {
+        var x = ajaxRequest(marker);
+        console.log("hello" + x);
+        marker.addListener('click', function() {
+            self.showInfo(marker);
+
+        });
+
+    };
+    //loop to alter through the click events to add info to the marker
+    for (var j = 0; j < self.locationList.length; j++) {
+
+        self.click(self.locationList[j]);
 
     }
+
+
+     self.showInfo = function(marker) {
+        
+       console.log("hello");
+
+        if (marker.ratings == 'undefined' || marker.likes == 'undefined') {
+            infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p>");
+            infowindow.open(map,marker);
+            Animation(marker);
+        } else {
+            infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
+            infowindow.open(map,marker);
+            Animation(marker);
+        }
+       
+
+    };  
+
+
+
+
+       
+
+
 
 
 /* Function to perform the search from the search bar*/
@@ -232,72 +267,13 @@ function markerdisplay() {
 
 
     });
-    /* Function to show all Casinos*/
-    self.function1 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Casino") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all Beaches*/
-    self.function2 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Beach") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all Resorts*/
-    self.function3 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Resort") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all Food Locations*/
-    self.function4 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Food") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all markers*/
-    self.function5 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-
-            self.locationList[j].show(true);
-            self.locationList[j].setVisible(true);
-
-
-
-        }
-    }
+   
 
 }       
   
+  function googleError() {
+  alert("Google Maps did not load");
+}
 
   function myFunction() {
     console.log("hello");
@@ -325,7 +301,6 @@ function markerdisplay() {
   
 
 function filterFunction() {
-    console.log("hello");
     var input, filter, ul, li, a, i;
     input = document.getElementById("myInput");
     filter = input.value.toUpperCase();
@@ -339,6 +314,83 @@ function filterFunction() {
         }
     }
 }
+  
+}
+
+ 
+  function googleError() {
+  alert("Google Maps did not load");
+}
+
+  function myFunction() {
+    console.log("hello");
+    var x = document.getElementById("myDropdown");
+    if (x.style.display==="none"){
+        x.style.display="block";
+        console.log(x.style.display);
+
+    }
+    else{
+        x.style.display="none";}
+    }
+
+
+    function myFunction2() {
+    console.log("hello");
+    var x = document.getElementById("myDropdown");
+    if (x.style.display==="block"){
+        x.style.display="none";
+        console.log(x.style.display);
+
+    }
+   
+    }
+  
+
+function filterFunction() {
+    var input, filter, ul, li, a, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    div = document.getElementById("myDropdown");
+    a = div.getElementsByTagName("a");
+    for (i = 0; i < a.length; i++) {
+        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+        } else {
+            a[i].style.display = "none";
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             
          

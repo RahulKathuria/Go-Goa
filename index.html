@@ -34,18 +34,12 @@
          </div> 
          <script type="text/html" id="maps"> 
             <li>
-                <a data-bind="text: name , click:$parent.showInfo"  ></a> 
+                <a data-bind="text: name , click:$parent.showInfo, visible:show"  ></a> 
                 
             </li>
          </script> 
-         <div class="nav-content">
-         <ul class="tabs tabs-transparent">
-            <li class="btn" data-bind="click: function1"><a href="#casino">Casinos</a></button>
-            <li class="btn" data-bind="click: function2"><a class="#active" href="#beach">Beaches</a></li>
-            <li class="btn" data-bind="click: function3"><a href="#resorts">Resorts</a></li>
-            <li class="btn" data-bind="click: function4"><a href="#food">Food</a></li>
-            <li class="btn" data-bind="click: function5"><a href="#all">All</a></li>
-         </ul>
+
+      
       </nav>
       <div id="map"  ></div>
       <script src="js/map.js"></script>
