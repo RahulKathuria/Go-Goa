@@ -155,12 +155,12 @@ self.ajaxRequest = function(marker) {
 
     });
 };
-
+var infowindow;
 
 /*Main function*/
 function markerdisplay() {
     var self = this;
-    var infowindow = new google.maps.InfoWindow({
+    infowindow = new google.maps.InfoWindow({
         maxwidth: 400,
 
 
@@ -270,6 +270,70 @@ function Animation(marker){
    
 
 }       
+
+          /* Function to show all Casinos*/
+    self.function1 = function() {
+        for (var j = 0; j < self.locationList.length; j++) {
+            if (self.locationList[j].type.localeCompare("Casino") == 0) {
+                self.locationList[j].show(true);
+                self.locationList[j].setVisible(true);
+
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
+            }
+        }
+    }
+    /* Function to show all Beaches*/
+    self.function2 = function() {
+        for (var j = 0; j < self.locationList.length; j++) {
+            if (self.locationList[j].type.localeCompare("Beach") == 0) {
+                self.locationList[j].show(true);
+                self.locationList[j].setVisible(true);
+
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
+            }
+        }
+    }
+    /* Function to show all Resorts*/
+    self.function3 = function() {
+        for (var j = 0; j < self.locationList.length; j++) {
+            if (self.locationList[j].type.localeCompare("Resort") == 0) {
+                self.locationList[j].show(true);
+                self.locationList[j].setVisible(true);
+
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
+            }
+        }
+    }
+    /* Function to show all Food Locations*/
+    self.function4 = function() {
+        for (var j = 0; j < self.locationList.length; j++) {
+            if (self.locationList[j].type.localeCompare("Food") == 0) {
+                self.locationList[j].show(true);
+                self.locationList[j].setVisible(true);
+
+            } else {
+                self.locationList[j].show(false);
+                self.locationList[j].setVisible(false);
+            }
+        }
+    }
+    /* Function to show all markers*/
+    self.function5 = function() {
+        for (var j = 0; j < self.locationList.length; j++) {
+
+            self.locationList[j].show(true);
+            self.locationList[j].setVisible(true);
+
+
+
+        }
+    }
   
   function googleError() {
   alert("Google Maps did not load");
@@ -345,6 +409,8 @@ function filterFunction() {
     }
    
     }
+
+
   
 
 function filterFunction() {

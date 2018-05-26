@@ -25,19 +25,25 @@
                   <li>
                         <input id="myInput" type="text" placeholder="search" data-bind="value: searchText, valueUpdate: 'keyup' , event : {keyup : filterFunction}"  required>
                   </li>
-                  <ul data-bind="template: {name:'maps', foreach:map_location}"  > 
+                  <ul data-bind="foreach:locationList"  > 
+                       <li>
+                            <a data-bind="text: name , click:$parent.showInfo, visible:show"  ></a> 
+                            
+                        </li>
                   </ul>
                </ul>
             </div>
             </div>
          </div>
          </div> 
-         <script type="text/html" id="maps"> 
-            <li>
-                <a data-bind="text: name , click:$parent.showInfo, visible:show"  ></a> 
-                
-            </li>
-         </script> 
+         <div class="nav-content">
+         <ul class="tabs tabs-transparent">
+            <li class="btn" data-bind="click: function1"><a href="#casino">Casinos</a></li>
+            <li class="btn" data-bind="click: function2"><a class="#active" href="#beach">Beaches</a></li>
+            <li class="btn" data-bind="click: function3"><a href="#resorts">Resorts</a></li>
+            <li class="btn" data-bind="click: function4"><a href="#food">Food</a></li>
+            <li class="btn" data-bind="click: function5"><a href="#all">All</a></li>
+         </ul></div>
 
       
       </nav>
