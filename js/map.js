@@ -137,7 +137,7 @@ self.ajaxRequest = function(marker) {
             var details = result.response.venue;
             console.log(details.likes.summary);
             if (details.hasOwnProperty('likes')) {
-                marker.likes = details.likes.summary || 'N/A' ;
+                marker.likes = details.likes.summary || 'N/A';
             }
             if (details.hasOwnProperty('rating')) {
                 marker.rating = details.rating || 'N/A';
@@ -191,87 +191,82 @@ function markerdisplay() {
 
         self.locationList[self.locationList.length - 1];
         /* Click event on the marker to show info window*/
-function Animation(marker){
-    marker.setAnimation(google.maps.Animation.BOUNCE);
-    setTimeout(function() {
-            marker.setAnimation(null);
-        }, 2500);
-   
-}
+        function Animation(marker) {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+            setTimeout(function() {
+                marker.setAnimation(null);
+            }, 2500);
 
-
-    self.click = function(marker) {
-        var x = ajaxRequest(marker);
-        console.log("hello" + x);
-        marker.addListener('click', function() {
-            self.showInfo(marker);
-
-        });
-
-    };
-    //loop to alter through the click events to add info to the marker
-    for (var j = 0; j < self.locationList.length; j++) {
-
-        self.click(self.locationList[j]);
-
-    }
-
-
-     self.showInfo = function(marker) {
-        
-       console.log("hello");
-
-        if (marker.ratings == undefined || marker.likes == undefined) {
-            infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p>");
-            infowindow.open(map,marker);
-            Animation(marker);
-        } else {
-            infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
-            infowindow.open(map,marker);
-            Animation(marker);
         }
-       
-
-    };  
 
 
+        self.click = function(marker) {
+            var x = ajaxRequest(marker);
+            console.log("hello" + x);
+            marker.addListener('click', function() {
+                self.showInfo(marker);
+
+            });
+
+        };
+        //loop to alter through the click events to add info to the marker
+        for (var j = 0; j < self.locationList.length; j++) {
+
+            self.click(self.locationList[j]);
+
+        }
 
 
-       
+        self.showInfo = function(marker) {
 
+            console.log("hello");
 
-
-
-/* Function to perform the search from the search bar*/
-    self.searchText = ko.observable('');
-    self.search = ko.dependentObservable(function() {
-        infowindow.close();
-        var search = self.searchText().toLowerCase();
-        for (var i = 0; i < self.locationList.length; i++) {
-            if (self.locationList[i].name.toLowerCase().indexOf(search) > -1) {
-                self.locationList[i].show(true);
-                self.locationList[i].setVisible(true);
-
-
+            if (marker.ratings == undefined || marker.likes == undefined) {
+                infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p>");
+                infowindow.open(map, marker);
+                Animation(marker);
             } else {
-                self.locationList[i].show(false);
-                self.locationList[i].setVisible(false);
+                infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
+                infowindow.open(map, marker);
+                Animation(marker);
+            }
+
+
+        };
+
+
+
+
+        /* Function to perform the search from the search bar*/
+        self.searchText = ko.observable('');
+        self.search = ko.dependentObservable(function() {
+            infowindow.close();
+            var search = self.searchText().toLowerCase();
+            for (var i = 0; i < self.locationList.length; i++) {
+                if (self.locationList[i].name.toLowerCase().indexOf(search) > -1) {
+                    self.locationList[i].show(true);
+                    self.locationList[i].setVisible(true);
+
+
+                } else {
+                    self.locationList[i].show(false);
+                    self.locationList[i].setVisible(false);
+
+
+                }
+
 
 
             }
 
 
 
-        }
+        });
 
 
+    }
 
-    });
-   
-
-}       
-
-          /* Function to show all Casinos*/
+    /* Function to show all Casinos*/
     self.function1 = function() {
         for (var j = 0; j < self.locationList.length; j++) {
             if (self.locationList[j].type.localeCompare("Casino") == 0) {
@@ -334,35 +329,82 @@ function Animation(marker){
 
         }
     }
-  
-  function googleError() {
-  alert("Google Maps did not load");
-}
 
-  function myFunction() {
-    console.log("hello");
-    var x = document.getElementById("myDropdown");
-    if (x.style.display==="none"){
-        x.style.display="block";
-        console.log(x.style.display);
-
+    function googleError() {
+        alert("Google Maps did not load");
     }
-    else{
-        x.style.display="none";}
+
+    function myFunction() {
+        console.log("hello");
+        var x = document.getElementById("myDropdown");
+        if (x.style.display === "none") {
+            x.style.display = "block";
+            console.log(x.style.display);
+
+        } else {
+            x.style.display = "none";
+        }
     }
 
 
     function myFunction2() {
+        console.log("hello");
+        var x = document.getElementById("myDropdown");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+            console.log(x.style.display);
+
+        }
+
+    }
+
+
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                a[i].style.display = "";
+            } else {
+                a[i].style.display = "none";
+            }
+        }
+    }
+
+}
+
+
+function googleError() {
+    alert("Google Maps did not load");
+}
+
+function myFunction() {
     console.log("hello");
     var x = document.getElementById("myDropdown");
-    if (x.style.display==="block"){
-        x.style.display="none";
+    if (x.style.display === "none") {
+        x.style.display = "block";
+        console.log(x.style.display);
+
+    } else {
+        x.style.display = "none";
+    }
+}
+
+
+function myFunction2() {
+    console.log("hello");
+    var x = document.getElementById("myDropdown");
+    if (x.style.display === "block") {
+        x.style.display = "none";
         console.log(x.style.display);
 
     }
-   
-    }
-  
+
+}
+
 
 function filterFunction() {
     var input, filter, ul, li, a, i;
@@ -378,87 +420,3 @@ function filterFunction() {
         }
     }
 }
-  
-}
-
- 
-  function googleError() {
-  alert("Google Maps did not load");
-}
-
-  function myFunction() {
-    console.log("hello");
-    var x = document.getElementById("myDropdown");
-    if (x.style.display==="none"){
-        x.style.display="block";
-        console.log(x.style.display);
-
-    }
-    else{
-        x.style.display="none";}
-    }
-
-
-    function myFunction2() {
-    console.log("hello");
-    var x = document.getElementById("myDropdown");
-    if (x.style.display==="block"){
-        x.style.display="none";
-        console.log(x.style.display);
-
-    }
-   
-    }
-
-
-  
-
-function filterFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
-    }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            
-         
-
-
