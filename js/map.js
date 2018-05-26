@@ -221,7 +221,7 @@ function Animation(marker){
         
        console.log("hello");
 
-        if (marker.ratings == 'undefined' || marker.likes == 'undefined') {
+        if (marker.ratings == undefined || marker.likes == undefined) {
             infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p>");
             infowindow.open(map,marker);
             Animation(marker);
