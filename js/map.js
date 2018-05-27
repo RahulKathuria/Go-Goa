@@ -1,3 +1,11 @@
+var categories = [
+    'Casino',
+    'Food',
+    'Beach',
+    'Resort',
+    'All'
+]
+
 var map_location = [{
         name: 'Casino Royale ',
         location: [15.501766065222494, 73.82690138182622],
@@ -62,28 +70,28 @@ var map_location = [{
         show: true
     },
     {
-        name: "Hard Rock Hotel Goa ",
+        name: "Hard Rock Hotel Goa",
         location: [15.545985974125125, 73.76672366007875],
         id: "567d33c9498eb5432e95b54a",
         type: "Resort",
         show: true
     },
     {
-        name: "Park Hyatt Goa Resort And Spa ",
+        name: "Park Hyatt Goa",
         location: [15.327479387246473, 73.89870231194088],
         id: "52cc72e2498e3408632fb836",
         type: "Resort",
         show: true
     },
     {
-        name: "Vivanta by Taj - Holiday Village, Goa ",
+        name: "Vivanta by Taj",
         location: [15.500242448991493, 73.769283283369893],
         id: "541ff72d498e5208ede1ceaf",
         type: "Resort",
         show: true
     },
     {
-        name: "Taj Exotica Hotel Benaulim ",
+        name: "Taj Exotica Hotel",
         location: [15.244223978563046, 73.9248824539007],
         id: "4bd7315d304fce72be3233ab",
         type: "Resort",
@@ -120,13 +128,8 @@ function initMap() {
             lat: 15.496777,
             lng: 73.827827
         },
-
-
     });
-
-
     ko.applyBindings(new markerdisplay());
-
 }
 /*function to do ajax request*/
 self.ajaxRequest = function(marker) {
@@ -145,16 +148,12 @@ self.ajaxRequest = function(marker) {
 
         },
         error: function(error) {
-
-            console.log("Foursquare is unable to provide you results. Try again after some time.");
-
-
+            marker.rating = "Foursquare is unable to provide you results. Try again after some time.";
+            marker.likes = "Unable to connect to foursquare, try after some time"
         }
-
-
-
     });
 };
+
 var infowindow;
 
 /*Main function*/
@@ -168,6 +167,7 @@ function markerdisplay() {
 
 
     self.locationList = [];
+    self.categories = categories;
 
     for (var i = 0; i < map_location.length; i++) {
         marker = new google.maps.Marker({
@@ -202,31 +202,21 @@ function markerdisplay() {
 
         self.click = function(marker) {
             var x = ajaxRequest(marker);
-            console.log("hello" + x);
             marker.addListener('click', function() {
                 self.showInfo(marker);
-
             });
-
         };
         //loop to alter through the click events to add info to the marker
-        for (var j = 0; j < self.locationList.length; j++) {
-
-            self.click(self.locationList[j]);
-
-        }
-
+      
+           self.click(self.locationList[i]);
 
         self.showInfo = function(marker) {
-
-            console.log("hello");
-
-            if (marker.ratings == undefined || marker.likes == undefined) {
-                infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p>");
+            if (marker.rating == undefined || marker.likes == undefined) {
+                infowindow.setContent("<div class='black-text'> <p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + "No Likes" + "</div>" + "<div>" + "Rating: " + "No ratings" + " ⭐" + "</div>" + "</p></div>");
                 infowindow.open(map, marker);
                 Animation(marker);
             } else {
-                infowindow.setContent("<p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p>");
+                infowindow.setContent("<div class='black-text'> <p><b>" + marker.name + "</b>" + "<div>" + marker.type + "</div>" + "<div>" + "Likes: " + marker.likes + "</div>" + "<div>" + "Rating: " + marker.rating + " ⭐" + "</div>" + "</p></div>");
                 infowindow.open(map, marker);
                 Animation(marker);
             }
@@ -240,7 +230,6 @@ function markerdisplay() {
         /* Function to perform the search from the search bar*/
         self.searchText = ko.observable('');
         self.search = ko.dependentObservable(function() {
-            infowindow.close();
             var search = self.searchText().toLowerCase();
             for (var i = 0; i < self.locationList.length; i++) {
                 if (self.locationList[i].name.toLowerCase().indexOf(search) > -1) {
@@ -255,8 +244,6 @@ function markerdisplay() {
 
                 }
 
-
-
             }
 
 
@@ -267,111 +254,31 @@ function markerdisplay() {
     }
 
     /* Function to show all Casinos*/
-    self.function1 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Casino") == 0) {
+    self.showCat = function(cat) {
+        if (cat == "All"){
+            for (var j = 0; j < self.locationList.length; j++) {
                 self.locationList[j].show(true);
                 self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
             }
         }
-    }
-    /* Function to show all Beaches*/
-    self.function2 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Beach") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
+        else {
+            for (var j = 0; j < self.locationList.length; j++) {
+                if (self.locationList[j].type.localeCompare(cat) == 0) {
+                    self.locationList[j].show(true);
+                    self.locationList[j].setVisible(true);
 
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
+                } else {
+                    self.locationList[j].show(false);
+                    self.locationList[j].setVisible(false);
+                }
             }
         }
-    }
-    /* Function to show all Resorts*/
-    self.function3 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Resort") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all Food Locations*/
-    self.function4 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-            if (self.locationList[j].type.localeCompare("Food") == 0) {
-                self.locationList[j].show(true);
-                self.locationList[j].setVisible(true);
-
-            } else {
-                self.locationList[j].show(false);
-                self.locationList[j].setVisible(false);
-            }
-        }
-    }
-    /* Function to show all markers*/
-    self.function5 = function() {
-        for (var j = 0; j < self.locationList.length; j++) {
-
-            self.locationList[j].show(true);
-            self.locationList[j].setVisible(true);
-
-
-
-        }
-    }
-
-    function googleError() {
-        alert("Google Maps did not load");
-    }
-
-    function myFunction() {
-        console.log("hello");
-        var x = document.getElementById("myDropdown");
-        if (x.style.display === "none") {
-            x.style.display = "block";
-            console.log(x.style.display);
-
-        } else {
-            x.style.display = "none";
-        }
+        
     }
 
 
-    function myFunction2() {
-        console.log("hello");
-        var x = document.getElementById("myDropdown");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-            console.log(x.style.display);
-
-        }
-
-    }
-
-
-    function filterFunction() {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("myDropdown");
-        a = div.getElementsByTagName("a");
-        for (i = 0; i < a.length; i++) {
-            if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-                a[i].style.display = "";
-            } else {
-                a[i].style.display = "none";
-            }
-        }
+    self.filterFunction = function() {
+        console.log(self.searchText)
     }
 
 }
@@ -381,42 +288,3 @@ function googleError() {
     alert("Google Maps did not load");
 }
 
-function myFunction() {
-    console.log("hello");
-    var x = document.getElementById("myDropdown");
-    if (x.style.display === "none") {
-        x.style.display = "block";
-        console.log(x.style.display);
-
-    } else {
-        x.style.display = "none";
-    }
-}
-
-
-function myFunction2() {
-    console.log("hello");
-    var x = document.getElementById("myDropdown");
-    if (x.style.display === "block") {
-        x.style.display = "none";
-        console.log(x.style.display);
-
-    }
-
-}
-
-
-function filterFunction() {
-    var input, filter, ul, li, a, i;
-    input = document.getElementById("myInput");
-    filter = input.value.toUpperCase();
-    div = document.getElementById("myDropdown");
-    a = div.getElementsByTagName("a");
-    for (i = 0; i < a.length; i++) {
-        if (a[i].innerHTML.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-        } else {
-            a[i].style.display = "none";
-        }
-    }
-}
